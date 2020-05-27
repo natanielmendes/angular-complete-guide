@@ -3,15 +3,23 @@ import './App.css';
 import Person from './Person/Person';
 
 class App extends Component {
+  state = {
+    persons: [
+      { name: 'Fulano', age: Math.floor(Math.random() * 21) },
+      { name: 'Cicrano', age: 22 },
+      { name: 'CKAD', age: 23 }
+    ]
+  }
+
   render() {
-    const randomAge = Math.floor(Math.random() * 21);
     return (
       <div className="App">
         <h1 className="App-title">Hi, I'm a React App</h1>
         <p>This is really working! YAY</p>
-        <Person name="Fulano" age={randomAge}/>
-        <Person name="Cicrano" age="22">My hobbies: Racing</Person>
-        <Person name="CKAD" age="23"/>
+        <button>Switch Name</button>
+        <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
+        <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>My hobbies: Racing</Person>
+        <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
       </div>
     );
   }
