@@ -37,11 +37,21 @@ const app = props => {
     })
   }
 
+  const style = {
+    backgroundColor: 'white',
+    font: 'inherit',
+    border: '1px solid blue',
+    padding: '8px',
+    cursor: 'pointer'
+  };
+
   return (
     <div className="App">
       <h1 className="App-title">Hi, I'm a React App</h1>
       <p>This is really working! YAY</p>
-      <button onClick={() => switchNameHandler('Nataniel!!')}>Switch Name</button> {/* React can re-render certain things
+      <button 
+        style={style} 
+        onClick={() => switchNameHandler('Nataniel!!')}>Switch Name</button> {/* React can re-render certain things
       too often using this inneficient approach */}
       <Person 
         name={personsState.persons[0].name}
