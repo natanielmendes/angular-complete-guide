@@ -27,6 +27,16 @@ const app = props => {
     })
   }
 
+  const nameChangeHandler = (event) => {
+    setPersonsState({
+      persons: [
+        { name: 'Fulano', age: Math.floor(Math.random() * 7) + 23 },
+        { name: event.target.value, age: Math.floor(Math.random() * 12) + 18 },
+        { name: 'CKAD', age: 23 }
+      ]
+    })
+  }
+
   return (
     <div className="App">
       <h1 className="App-title">Hi, I'm a React App</h1>
@@ -39,8 +49,10 @@ const app = props => {
       <Person
         name={personsState.persons[1].name}
         age={personsState.persons[1].age}
-        click={switchNameHandler.bind(this, 'Natan!')}>My hobbies: Racing</Person> {/* Preferably use this approach in order
-        to bind arguments to the function */}
+        click={switchNameHandler.bind(this, 'Natan!')} /* Preferably use this approach in order
+        to bind arguments to the function */
+        changed={nameChangeHandler}>My hobbies: Racing</Person> 
+
       <Person 
         name={personsState.persons[2].name} 
         age={personsState.persons[2].age}/>
