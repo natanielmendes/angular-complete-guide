@@ -1,24 +1,22 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
 
-const app = props => {
-  const [ personsState, setPersonsState ] = useState({
+class App extends Component {
+  state = {
     persons: [
       { name: 'Fulano', age: Math.floor(Math.random() * 7) + 23 },
       { name: 'Cicrano', age: Math.floor(Math.random() * 12) + 18 },
       { name: 'CKAD', age: 23 }
-    ]
-  });
+    ],
+    otherState: 'some other value',
+    showPersons: false
+  };
 
-  const [otherState, setOtherState ] = useState('some other value');
-
-  console.log(personsState, otherState);
-
-  const switchNameHandler = (newName) => {
+  switchNameHandler = (newName) => {
     // console.log("Was clicked!")
     // DON'T DO THIS! this.state.persons[0].name = 'Natan'
-    setPersonsState({
+    this.setState({
       persons: [
         { name: newName, age: Math.floor(Math.random() * 7) + 23 },
         { name: 'Cicrano', age: Math.floor(Math.random() * 12) + 18 },
@@ -27,8 +25,8 @@ const app = props => {
     })
   }
 
-  const nameChangeHandler = (event) => {
-    setPersonsState({
+  nameChangeHandler = (event) => {
+    this.setState({
       persons: [
         { name: 'Fulano', age: Math.floor(Math.random() * 7) + 23 },
         { name: event.target.value, age: Math.floor(Math.random() * 12) + 18 },
@@ -37,40 +35,50 @@ const app = props => {
     })
   }
 
-  const style = {
-    backgroundColor: 'white',
-    font: 'inherit',
-    border: '1px solid blue',
-    padding: '8px',
-    cursor: 'pointer'
-  };
+  togglePersonsHandler = () => {
+    this.setState({
+      showPersons: !this.state.showPersons
+    })
+  }
 
-  return (
-    <div className="App">
-      <h1 className="App-title">Hi, I'm a React App</h1>
-      <p>This is really working! YAY</p>
-      <button 
-        style={style} 
-        onClick={() => switchNameHandler('Nataniel!!')}>Switch Name</button> {/* React can re-render certain things
-      too often using this inneficient approach */}
-      <Person 
-        name={personsState.persons[0].name}
-        age={personsState.persons[0].age}/>
-      <Person
-        name={personsState.persons[1].name}
-        age={personsState.persons[1].age}
-        click={switchNameHandler.bind(this, 'Natan!')} /* Preferably use this approach in order
-        to bind arguments to the function */
-        changed={nameChangeHandler}>My hobbies: Racing</Person> 
+  render () {
+    const style = {
+      backgroundColor: 'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer'
+    };
 
-      <Person 
-        name={personsState.persons[2].name} 
-        age={personsState.persons[2].age}/>
-    </div>
-  );
+    return (
+      <div className="App">
+        <h1 className="App-title">Hi, I'm a React App</h1>
+        <p>This is really working! YAY</p>
+        <button 
+          style={style} 
+          onClick={this.togglePersonsHandler}>Toggle Person List</button>
+        {this.state.showPersons ?
+          <div>
+            <Person 
+              name={this.state.persons[0].name}
+              age={this.state.persons[0].age}/>
+            <Person
+              name={this.state.persons[1].name}
+              age={this.state.persons[1].age}
+              click={this.switchNameHandler.bind(this, 'Natan!')} /* Preferably use this approach in order
+              to bind arguments to the function */
+              changed={this.nameChangeHandler}>My hobbies: Racing</Person> 
+            <Person 
+              name={this.state.persons[2].name} 
+              age={this.state.persons[2].age}/>
+          </div> : null
+        }
+      </div>
+    );
+  }
 }
 
-export default app;
+export default App;
 
 // state = {
 //   persons: [
