@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './App.css';
+import classes from './App.css';
 import PersonList from '../components/PersonList/PersonList';
 import Cockpit from '../components/Cockpit/Cockpit';
 import withClass from '../hoc/withClass';
@@ -82,7 +82,7 @@ class App extends Component {
 
     return (
       <Aux>
-        <div className="App">
+        <div className={classes.App}>
           <button onClick={() => {this.setState({ showCockpit: false })}}>Remove Cockpit</button>
           {this.state.showCockpit ? (<Cockpit 
             title={this.props.appTitle}

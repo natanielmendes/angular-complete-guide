@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import './Cockpit.css';
+import classes from './Cockpit.css';
 
 const cockpit = (props) => {
     useEffect(() => {
@@ -24,18 +24,18 @@ const cockpit = (props) => {
     const assignedClasses = [];
     let btnClass = '';
     if (props.showPersons) {
-        btnClass = 'Red';
+        btnClass = classes.Red;
     }
 
     if (props.personsLength <= 2) {
-        assignedClasses.push('red'); // classes = ['red']
+        assignedClasses.push(classes.red); // classes = ['red']
     }
     if (props.personsLength <= 1) {
-        assignedClasses.push('bold'); // classes = ['red', 'blue']
+        assignedClasses.push(classes.bold); // classes = ['red', 'blue']
     }
 
     return (
-        <div className="Cockpit">
+        <div className={classes.Cockpit}>
             <h1>{props.title}</h1>
             <p className={assignedClasses.join(' ')}>This is really working! YAY</p>
             <button className={btnClass} onClick={props.clicked}>Toggle Person List</button>
