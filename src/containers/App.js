@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import './App.css';
 import PersonList from '../components/PersonList/PersonList';
 import Cockpit from '../components/Cockpit/Cockpit';
+import withClass from '../hoc/withClass';
+import Aux from '../hoc/Auxiliary';
 
 class App extends Component {
   constructor(props) {
@@ -79,38 +81,20 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
-        <button onClick={() => {this.setState({ showCockpit: false })}}>Remove Cockpit</button>
-        {this.state.showCockpit ? (<Cockpit 
-          title={this.props.appTitle}
-          showPersons={this.state.showPersons} 
-          personsLength={this.state.persons.length}
-          clicked={this.togglePersonsHandler} />
-        ) : null}
-        {persons}
-      </div>
+      <Aux>
+        <div className="App">
+          <button onClick={() => {this.setState({ showCockpit: false })}}>Remove Cockpit</button>
+          {this.state.showCockpit ? (<Cockpit 
+            title={this.props.appTitle}
+            showPersons={this.state.showPersons} 
+            personsLength={this.state.persons.length}
+            clicked={this.togglePersonsHandler} />
+          ) : null}
+          {persons}
+        </div>
+      </Aux>
     );
   }
 }
 
 export default App;
-
-// state = {
-//   persons: [
-//     { name: 'Fulano', age: Math.floor(Math.random() * 7) + 23 },
-//     { name: 'Cicrano', age: 22 },
-//     { name: 'CKAD', age: 23 }
-//   ]
-// }
-
-// switchNameHandler = () => {
-//   // console.log("Was clicked!")
-//   // DON'T DO THIS! this.state.persons[0].name = 'Natan'
-//   this.setState({
-//     persons: [
-//       { name: 'Natan', age: Math.floor(Math.random() * 7) + 23 },
-//       { name: 'Cicrano', age: Math.floor(Math.random() * 12) + 18 },
-//       { name: 'CKAD', age: 23 }
-//     ]
-//   })
-// }
