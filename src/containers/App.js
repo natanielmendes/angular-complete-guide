@@ -39,7 +39,8 @@ class App extends Component {
     otherState: 'some other value',
     showPersons: false,
     showCockpit: true,
-    changeCounter: 0
+    changeCounter: 0,
+    authenticated: false
   };
   
   togglePersonsHandler = () => {
@@ -76,25 +77,36 @@ class App extends Component {
     this.setState({persons: persons});
   }
 
+  loginHandler = () => {
+    this.setState({ authenticated: true });
+  };
+
   render () {
     console.log('[App.js] render');
     let persons = null;
     if (this.state.showPersons) {
-      persons = <PersonList 
-            personList={this.state.persons}
-            clicked={this.deletePersonHandler}
-            changed={this.nameChangedHandler} />
+      persons = (
+        <PersonList 
+          personList={this.state.persons}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangedHandler}
+          isAuthenticated={this.state.authenticated}
+        />
+      );
     }
 
     return (
       <Aux>
         <div className={classes.App}>
           <button onClick={() => {this.setState({ showCockpit: false })}}>Remove Cockpit</button>
-          {this.state.showCockpit ? (<Cockpit 
-            title={this.props.appTitle}
-            showPersons={this.state.showPersons} 
-            personsLength={this.state.persons.length}
-            clicked={this.togglePersonsHandler} />
+          {this.state.showCockpit ? (
+            <Cockpit 
+              title={this.props.appTitle}
+              showPersons={this.state.showPersons} 
+              personsLength={this.state.persons.length}
+              clicked={this.togglePersonsHandler}
+              login={this.loginHandler}
+            />
           ) : null}
           {persons}
         </div>
